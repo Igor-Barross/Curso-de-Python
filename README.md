@@ -1,5 +1,11 @@
-# Curso de Python 🐍
-Bem-vindo ao repositório do Curso de Python! Aqui você encontrará os materiais e códigos utilizados ao longo das aulas.
+## 📌 Bem-vindo ao meu repositório! Aqui você encontrará meus códigos nas aulas do
+- Curso de Python 3 do básico ao avançado - com projetos reais.
 
-## 📌 Sobre o Curso
-Este curso cobre os fundamentos da linguagem Python, passando por conceitos básicos até tópicos mais avançados, com foco na prática.
+## 📌 Conteúdo
+- 🎓 Códigos de aulas do curso de Python
+
+## 🚀 Tecnologias  
+- Python 3.10
+
+## 📩 Contato  
+- LinkedIn: [linkedin.com/in/jose-igor](#)  
