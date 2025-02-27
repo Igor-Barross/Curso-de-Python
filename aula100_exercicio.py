@@ -1,6 +1,7 @@
 import copy
 from dados import produtos
 
+
 # copy, sorted, produtos.sort
 # Exercícios
 # Aumente os preços dos produtos a seguir em 10%

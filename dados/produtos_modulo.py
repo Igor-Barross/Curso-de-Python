@@ -1,3 +1,4 @@
+# Lista de dados
 produtos = [
     {'nome': 'Produto 5', 'preco': 10.00},
     {'nome': 'Produto 1', 'preco': 22.32},
