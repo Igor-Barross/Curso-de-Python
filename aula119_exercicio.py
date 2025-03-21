@@ -8,13 +8,14 @@
  # refazer = todo ['fazer café', 'caminhar']
 
 import os
+import json
 
 # Função para limpar tela
 def limpa_tela():
     return os.system('cls')
 
 
-def lisar(tarefas):
+def listar(tarefas):
     print()
     if not tarefas:
         print('Nada a listar.')
@@ -36,6 +37,7 @@ def desfazer(tarefas, tarefas_refazer):
     print(f'{tarefa=} removida da lista de tarefas.')
     tarefas_refazer.append(tarefa)
     print()
+    listar(tarefas)
 
 
 def refazer(tarefas, tarefas_refazer):
@@ -48,6 +50,8 @@ def refazer(tarefas, tarefas_refazer):
     print(f'{tarefa=} adicionada a lista de tarefas.')
     tarefas.append(tarefa)
     print()
+    listar(tarefas)
+
 
 def adicionar(tarefa, tarefas):
     print()
@@ -59,32 +63,69 @@ def adicionar(tarefa, tarefas):
     print(f'{tarefa=} adicionada a lista de tarefas')
     tarefas.append(tarefa)
     print()
+    listar(tarefas)
 
 
-tarefas = []
+def ler(tarefas, caminho_arquivo):
+    dados = tarefas
+    try:
+        with open(caminho_arquivo, 'r', encoding='utf8') as arquivo:
+            dados = json.load(arquivo)
+        return dados
+    except FileNotFoundError:
+        salvar(tarefas, caminho_arquivo)
+
+
+def salvar(tarefas, caminho_arquivo):
+    dados = tarefas
+    with open(caminho_arquivo, 'w', encoding='utf8') as arquivo:
+        dados = json.dump(tarefas, arquivo, indent=2, 
+            ensure_ascii=False)
+    return dados
+
+
+CAMINHO_ARQUIVO = 'aula119.json'
+tarefas = ler([], CAMINHO_ARQUIVO)
 tarefas_refazer = []
 
 while True:
     print('Comados: listar, desfazer, refazer, parar, clear')
     tarefa = input('Digite uma tarefa ou comando: ')
     print()
-    
-    if tarefa == 'listar':
-        lisar(tarefas)
 
-    elif tarefa == 'desfazer':
-        desfazer(tarefas, tarefas_refazer)
+    comandos = {
+        'listar' : lambda: listar(tarefas),
+        'desfazer' : lambda: desfazer(tarefas, tarefas_refazer),
+        'refazer' : lambda: refazer(tarefas, tarefas_refazer),
+        'clear' : lambda: limpa_tela(),
+        'adicionar' : lambda: adicionar(tarefa, tarefas),
+    }
 
-    elif tarefa == 'refazer':
-        refazer(tarefas, tarefas_refazer)
-  
-
-    elif tarefa == 'clear':
-        limpa_tela()
-
-    elif tarefa == 'parar':
+    if tarefa == 'parar':
         break
     
-    else:
-        adicionar(tarefa, tarefas)
-        lisar(tarefas)
+    comando = comandos.get(tarefa) if comandos.get(tarefa) is not None else \
+        comandos['adicionar']
+    comando()
+    salvar(tarefas, CAMINHO_ARQUIVO)
+
+
+    # if tarefa == 'listar':
+    #     lisar(tarefas)
+
+    # elif tarefa == 'desfazer':
+    #     desfazer(tarefas, tarefas_refazer)
+
+    # elif tarefa == 'refazer':
+    #     refazer(tarefas, tarefas_refazer)
+  
+
+    # elif tarefa == 'clear':
+    #     limpa_tela()
+
+    # elif tarefa == 'parar':
+    #     break
+    
+    # else:
+    #     adicionar(tarefa, tarefas)
+    #     lisar(tarefas)
